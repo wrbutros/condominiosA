@@ -1,0 +1,46 @@
+{
+  "caption": "ADMINISTRACION-REMUNERACIONES",
+  "data": [
+    {
+      "id": "1",
+      "detalle": "Sueldo Liquidos del Personal",
+      "documento": "Egreso #20",
+      "total": "4790160"
+    },
+    {
+      "id": "2",
+      "detalle": "Previred",
+      "documento": "Egreso #22",
+      "total": "733654"
+    }
+  ],
+  "colNames": [
+    "id",
+    "Detalle",
+    "Documento",
+    "Total"
+  ],
+  "colModel": [
+    {
+      "name": "id",
+      "index": "id",
+      "hidden": true
+    },
+    {
+      "name": "detalle",
+      "index": "detalle",
+      "editable": true
+    },
+    {
+      "name": "documento",
+      "index": "documento",
+      "editable": true
+    },
+    {
+      "name": "total",
+      "index": "total",
+      "align": "right",
+      "editable": true
+    }
+  ]
+}

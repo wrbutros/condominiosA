@@ -84,8 +84,19 @@ gulp.task('vendor', function(){
 
 });
 
+var stubby = require('gulp-stubby-server');
+
+gulp.task('stubby', function(cb) {
+    var options = {
+        files: [
+            'mocks/*.{yaml,js}'
+        ]
+    };
+    stubby(options, cb);
+});
+
 gulp.task('prod', ['vendor', 'build']);
-gulp.task('dev', ['vendor', 'js', 'watch', 'connect']);
+gulp.task('dev', ['vendor', 'js', 'watch', 'stubby','connect']);
 gulp.task('default', ['dev']);
 
 var swallowError = function(error){

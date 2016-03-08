@@ -299,91 +299,92 @@ $(function () {
  * Main module of the application.
  */
 
-angular.module('app', [
-    'ngSanitize',
-    'ngAnimate',
-    'restangular',
-    'ui.router',
-    'ui.bootstrap',
+angular
+    .module('app', [
+        'ngSanitize',
+        'ngAnimate',
+        'restangular',
+        'ui.router',
+        'ui.bootstrap',
 
-    // Smartadmin Angular Common Module
-    'SmartAdmin',
+        // Smartadmin Angular Common Module
+        'SmartAdmin',
 
-    // App
-    'app.auth',
-    'app.layout',
-    'app.chat',
-    'app.dashboard',
-    'app.calendar',
-    'app.inbox',
-    'app.graphs',
-    'app.tables',
-    'app.forms',
-    'app.ui',
-    'app.widgets',
-    'app.maps',
-    'app.appViews',
-    'app.misc',
-    'app.smartAdmin',
-    'app.eCommerce',
-    'app.expenseReport',
-    'app.collectionExpenses',
-    'app.buildingExpenses'
-])
-.config(function ($provide, $httpProvider, RestangularProvider) {
+        // App
+        'app.auth',
+        'app.layout',
+        'app.chat',
+        'app.dashboard',
+        'app.calendar',
+        'app.inbox',
+        'app.graphs',
+        'app.tables',
+        'app.forms',
+        'app.ui',
+        'app.widgets',
+        'app.maps',
+        'app.appViews',
+        'app.misc',
+        'app.smartAdmin',
+        'app.eCommerce',
+        'app.expenseReport',
+        'app.collectionExpenses',
+        'app.buildingExpenses'
+    ])
+    .config(function ($provide, $httpProvider, RestangularProvider) {
 
 
-    // Intercept http calls.
-    $provide.factory('ErrorHttpInterceptor', function ($q) {
-        var errorCounter = 0;
-        function notifyError(rejection){
-            console.log(rejection);
-            $.bigBox({
-                title: rejection.status + ' ' + rejection.statusText,
-                content: rejection.data,
-                color: "#C46A69",
-                icon: "fa fa-warning shake animated",
-                number: ++errorCounter,
-                timeout: 6000
-            });
-        }
+        // Intercept http calls.
+        $provide.factory('ErrorHttpInterceptor', function ($q) {
+            var errorCounter = 0;
 
-        return {
-            // On request failure
-            requestError: function (rejection) {
-                // show notification
-                notifyError(rejection);
-
-                // Return the promise rejection.
-                return $q.reject(rejection);
-            },
-
-            // On response failure
-            responseError: function (rejection) {
-                // show notification
-                notifyError(rejection);
-                // Return the promise rejection.
-                return $q.reject(rejection);
+            function notifyError(rejection) {
+                console.log(rejection);
+                $.bigBox({
+                    title: rejection.status + ' ' + rejection.statusText,
+                    content: rejection.data,
+                    color: "#C46A69",
+                    icon: "fa fa-warning shake animated",
+                    number: ++errorCounter,
+                    timeout: 6000
+                });
             }
-        };
+
+            return {
+                // On request failure
+                requestError: function (rejection) {
+                    // show notification
+                    notifyError(rejection);
+
+                    // Return the promise rejection.
+                    return $q.reject(rejection);
+                },
+
+                // On response failure
+                responseError: function (rejection) {
+                    // show notification
+                    notifyError(rejection);
+                    // Return the promise rejection.
+                    return $q.reject(rejection);
+                }
+            };
+        });
+
+        // Add the interceptor to the $httpProvider.
+        $httpProvider.interceptors.push('ErrorHttpInterceptor');
+
+        RestangularProvider.setBaseUrl(location.pathname.replace(/[^\/]+?$/, ''));
+
+    })
+    .constant('APP_CONFIG', window.appConfig)
+
+    .run(function ($rootScope
+        , $state, $stateParams) {
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+        // editableOptions.theme = 'bs3';
+
     });
-
-    // Add the interceptor to the $httpProvider.
-    $httpProvider.interceptors.push('ErrorHttpInterceptor');
-
-    RestangularProvider.setBaseUrl(location.pathname.replace(/[^\/]+?$/, ''));
-
-})
-.constant('APP_CONFIG', window.appConfig)
-
-.run(function ($rootScope
-    , $state, $stateParams
-    ) {
-    $rootScope.$state = $state;
-    $rootScope.$stateParams = $stateParams;
-    // editableOptions.theme = 'bs3';
-
-});
 
 
 
@@ -638,24 +639,25 @@ angular.module('app.auth', [
 
 "use strict";
 
-angular.module('app.buildingExpenses', ['ui.router'])
-.config(function ($stateProvider) {
+angular
+    .module('app.buildingExpenses', ['ui.router'])
+    .config(function ($stateProvider) {
 
-    $stateProvider
-        .state('app.buildingExpenses', {
-            url: '/buildingExpenses',
-            data: {
-                title: 'Gastos Comunes'
-            },
-            views: {
-                "content@app": {
-                    templateUrl: 'app/building-expenses/views/index.html',
-                    controller: 'BuildingExpensesCtrl'
+        $stateProvider
+            .state('app.buildingExpenses', {
+                url: '/buildingExpenses',
+                data: {
+                    title: 'Gastos Comunes'
+                },
+                views: {
+                    "content@app": {
+                        templateUrl: 'app/building-expenses/views/index.html',
+                        controller: 'BuildingExpensesCtrl'
+                    }
                 }
-            }
-        })
+            })
 
-});
+    });
 
 
 "use strict";
@@ -2445,26 +2447,29 @@ angular.module('app.auth').controller('LoginCtrl', function ($scope, $state, Goo
     });
 })
 
-
-
 'use strict';
 
-angular.module('app.auth').factory('User', function ($http, $q, APP_CONFIG) {
-    var dfd = $q.defer();
+angular
+    .module('app.auth')
+    .factory(
+        'User',
+        function ($http, $q, APP_CONFIG) {
+            var dfd = $q.defer();
 
-    var UserModel = {
-        initialized: dfd.promise,
-        username: undefined,
-        picture: undefined
-    };
-     $http.get(APP_CONFIG.apiRootUrl + '/user.json').then(function(response){
-         UserModel.username = response.data.username;
-         UserModel.picture= response.data.picture;
-         dfd.resolve(UserModel)
-     });
+            var UserModel = {
+                initialized: dfd.promise,
+                username: undefined,
+                picture: undefined
+            };
 
-    return UserModel;
-});
+            $http.get(APP_CONFIG.apiRootUrl + '/user.json').then(function (response) {
+                UserModel.username = response.data.username;
+                UserModel.picture = response.data.picture;
+                dfd.resolve(UserModel)
+            });
+
+            return UserModel;
+        });
 
 'use strict';
 
@@ -2962,261 +2967,288 @@ angular.module('app.eCommerce').controller('OrdersDemoCtrl', function ($scope, o
 });
 'use strict';
 
-angular.module('app.expenseReport').controller('ExpenseReportCtrl', function ($scope) {
+angular
+    .module('app.expenseReport')
+    .controller('ExpenseReportCtrl', function ($scope) {
 
-    $scope.gridData = {
-        caption: "ADMINISTRACION-REMUNERACIONES",
-        data: [
-            {
-                id: "1",
-                detalle: "Sueldo Liquidos del Personal",
-                documento: "Egreso #20",
-                total: "4790160"
-            },
-            {
-                id: "2",
-                detalle: "Previred",
-                documento: "Egreso #22",
-                total: "733654"
-            }
-        ],
-        colNames: ['id', 'Detalle', 'Documento', 'Total'],
-        colModel: [
-            {
-                name: 'id',
-                index: 'id',
-                hidden: true
-            },
-            {
-                name: 'detalle',
-                index: 'detalle',
-                editable: true
-            },
-            {
-                name: 'documento',
-                index: 'documento',
-                editable: true
-            },
-            {
-                name: 'total',
-                index: 'total',
-                align: "right",
-                editable: true
-            }
-        ]
+        // Se convierte en RESTANGULAR y consumo un servicio
+        // "URL_BACK"/v1/expense/report
+        // 0.0.0.0:8882/v1/expense/report
+        // http://url_backend/v1/expense/report
+        $scope.gridData = {
+            caption: "ADMINISTRACION-REMUNERACIONES",
+            data: [
+                {
+                    id: "1",
+                    detalle: "Sueldo Liquidos del Personal",
+                    documento: "Egreso #20",
+                    total: "4790160"
+                },
+                {
+                    id: "2",
+                    detalle: "Previred",
+                    documento: "Egreso #22",
+                    total: "733654"
+                }
+            ],
+            colNames: ['id', 'Detalle', 'Documento', 'Total'],
+            colModel: [
+                {
+                    name: 'id',
+                    index: 'id',
+                    hidden: true
+                },
+                {
+                    name: 'detalle',
+                    index: 'detalle',
+                    editable: true
+                },
+                {
+                    name: 'documento',
+                    index: 'documento',
+                    editable: true
+                },
+                {
+                    name: 'total',
+                    index: 'total',
+                    align: "right",
+                    editable: true
+                }
+            ]
+        };
+
+        $scope.gridData2 = {
+            caption: "CONSUMOS",
+            data: [
+                {
+                    id: "1",
+                    detalle: "Articulos de aseo",
+                    documento: "Egreso #224",
+                    total: "123000"
+                },
+                {
+                    id: "1",
+                    detalle: "Previred",
+                    documento: "Egreso #22",
+                    total: "733654"
+                }
+            ],
+            colNames: ['id', 'Detalle', 'Documento', 'Total'],
+            colModel: [
+                {
+                    name: 'id',
+                    index: 'id',
+                    hidden: true
+                },
+                {
+                    name: 'detalle',
+                    index: 'detalle',
+                    editable: false
+                },
+                {
+                    name: 'documento',
+                    index: 'documento',
+                    editable: true
+                },
+                {
+                    name: 'total',
+                    index: 'total',
+                    align: "right",
+                    editable: true
+                }
+            ]
+        };
+
+        $scope.gridData3 = {
+            caption: "MANTENCIONES",
+            data: [
+                {
+                    id: "1",
+                    detalle: "Sueldo Liquidos del Personal",
+                    documento: "Egreso #20",
+                    total: "4790160"
+                },
+                {
+                    id: "1",
+                    detalle: "Previred",
+                    documento: "Egreso #22",
+                    total: "733654"
+                }
+            ],
+            colNames: ['id', 'Detalle', 'Documento', 'Total'],
+            colModel: [
+                {
+                    name: 'id',
+                    index: 'id',
+                    hidden: true
+                },
+                {
+                    name: 'detalle',
+                    index: 'detalle',
+                    editable: false
+                },
+                {
+                    name: 'documento',
+                    index: 'documento',
+                    editable: true
+                },
+                {
+                    name: 'total',
+                    index: 'total',
+                    align: "right",
+                    editable: true
+                }
+            ]
+        };
+
+        $scope.gridData4 = {
+            caption: "REPARACIONES",
+            data: [
+                {
+                    id: "1",
+                    detalle: "Sueldo Liquidos del Personal",
+                    documento: "Egreso #20",
+                    total: "4790160"
+                },
+                {
+                    id: "1",
+                    detalle: "Previred",
+                    documento: "Egreso #22",
+                    total: "733654"
+                }
+            ],
+            colNames: ['id', 'Detalle', 'Documento', 'Total'],
+            colModel: [
+                {
+                    name: 'id',
+                    index: 'id',
+                    hidden: true
+                },
+                {
+                    name: 'detalle',
+                    index: 'detalle',
+                    editable: false
+                },
+                {
+                    name: 'documento',
+                    index: 'documento',
+                    editable: true
+                },
+                {
+                    name: 'total',
+                    index: 'total',
+                    align: "right",
+                    editable: true
+                }
+            ]
+        };
+
+        $scope.gridData5 = {
+            caption: "VARIOS",
+            data: [
+                {
+                    id: "1",
+                    detalle: "Sueldo Liquidos del Personal",
+                    documento: "Egreso #20",
+                    total: "4790160"
+                },
+                {
+                    id: "1",
+                    detalle: "Previred",
+                    documento: "Egreso #22",
+                    total: "733654"
+                }
+            ],
+            colNames: ['id', 'Detalle', 'Documento', 'Total'],
+            colModel: [
+                {
+                    name: 'id',
+                    index: 'id',
+                    hidden: true
+                },
+                {
+                    name: 'detalle',
+                    index: 'detalle',
+                    editable: false
+                },
+                {
+                    name: 'documento',
+                    index: 'documento',
+                    editable: true
+                },
+                {
+                    name: 'total',
+                    index: 'total',
+                    align: "right",
+                    editable: true
+                }
+            ]
+        };
+
+        $scope.gridData6 = {
+            caption: "GASTOS A COBRAR / DESCONTAR",
+            data: [
+                {
+                    id: "1",
+                    detalle: "Sueldo Liquidos del Personal",
+                    documento: "Egreso #20",
+                    total: "4790160"
+                },
+                {
+                    id: "1",
+                    detalle: "Previred",
+                    documento: "Egreso #22",
+                    total: "733654"
+                }
+            ],
+            colNames: ['id', 'Detalle', 'Documento', 'Total'],
+            colModel: [
+                {
+                    name: 'id',
+                    index: 'id',
+                    hidden: true
+                },
+                {
+                    name: 'detalle',
+                    index: 'detalle',
+                    editable: false
+                },
+                {
+                    name: 'documento',
+                    index: 'documento',
+                    editable: true
+                },
+                {
+                    name: 'total',
+                    index: 'total',
+                    align: "right",
+                    editable: true
+                }
+            ]
+        };
+
+    });
+
+
+'use strict';
+
+angular.module('app.auth').factory('User', function ($http, $q, APP_CONFIG) {
+    var dfd = $q.defer();
+
+    var UserModel = {
+        initialized: dfd.promise,
+        username: undefined,
+        picture: undefined
     };
+    $http.get(APP_CONFIG.apiRootUrl + '/user.json').then(function(response){
+        UserModel.username = response.data.username;
+        UserModel.picture= response.data.picture;
+        dfd.resolve(UserModel)
+    });
 
-    $scope.gridData2 = {
-        caption: "CONSUMOS",
-        data: [
-            {
-                id: "1",
-                detalle: "Sueldo Liquidos del Personal",
-                documento: "Egreso #20",
-                total: "4790160"
-            },
-            {
-                id: "1",
-                detalle: "Previred",
-                documento: "Egreso #22",
-                total: "733654"
-            }
-        ],
-        colNames: ['id', 'Detalle', 'Documento', 'Total'],
-        colModel: [
-            {
-                name: 'id',
-                index: 'id',
-                hidden: true
-            },
-            {
-                name: 'detalle',
-                index: 'detalle',
-                editable: false
-            },
-            {
-                name: 'documento',
-                index: 'documento',
-                editable: true
-            },
-            {
-                name: 'total',
-                index: 'total',
-                align: "right",
-                editable: true
-            }
-        ]
-    };
-
-    $scope.gridData3 = {
-        caption: "MANTENCIONES",
-        data: [
-            {
-                id: "1",
-                detalle: "Sueldo Liquidos del Personal",
-                documento: "Egreso #20",
-                total: "4790160"
-            },
-            {
-                id: "1",
-                detalle: "Previred",
-                documento: "Egreso #22",
-                total: "733654"
-            }
-        ],
-        colNames: ['id', 'Detalle', 'Documento', 'Total'],
-        colModel: [
-            {
-                name: 'id',
-                index: 'id',
-                hidden: true
-            },
-            {
-                name: 'detalle',
-                index: 'detalle',
-                editable: false
-            },
-            {
-                name: 'documento',
-                index: 'documento',
-                editable: true
-            },
-            {
-                name: 'total',
-                index: 'total',
-                align: "right",
-                editable: true
-            }
-        ]
-    };
-
-    $scope.gridData4 = {
-        caption: "REPARACIONES",
-        data: [
-            {
-                id: "1",
-                detalle: "Sueldo Liquidos del Personal",
-                documento: "Egreso #20",
-                total: "4790160"
-            },
-            {
-                id: "1",
-                detalle: "Previred",
-                documento: "Egreso #22",
-                total: "733654"
-            }
-        ],
-        colNames: ['id', 'Detalle', 'Documento', 'Total'],
-        colModel: [
-            {
-                name: 'id',
-                index: 'id',
-                hidden: true
-            },
-            {
-                name: 'detalle',
-                index: 'detalle',
-                editable: false
-            },
-            {
-                name: 'documento',
-                index: 'documento',
-                editable: true
-            },
-            {
-                name: 'total',
-                index: 'total',
-                align: "right",
-                editable: true
-            }
-        ]
-    };
-
-    $scope.gridData5 = {
-        caption: "VARIOS",
-        data: [
-            {
-                id: "1",
-                detalle: "Sueldo Liquidos del Personal",
-                documento: "Egreso #20",
-                total: "4790160"
-            },
-            {
-                id: "1",
-                detalle: "Previred",
-                documento: "Egreso #22",
-                total: "733654"
-            }
-        ],
-        colNames: ['id', 'Detalle', 'Documento', 'Total'],
-        colModel: [
-            {
-                name: 'id',
-                index: 'id',
-                hidden: true
-            },
-            {
-                name: 'detalle',
-                index: 'detalle',
-                editable: false
-            },
-            {
-                name: 'documento',
-                index: 'documento',
-                editable: true
-            },
-            {
-                name: 'total',
-                index: 'total',
-                align: "right",
-                editable: true
-            }
-        ]
-    };
-
-    $scope.gridData6 = {
-        caption: "GASTOS A COBRAR / DESCONTAR",
-        data: [
-            {
-                id: "1",
-                detalle: "Sueldo Liquidos del Personal",
-                documento: "Egreso #20",
-                total: "4790160"
-            },
-            {
-                id: "1",
-                detalle: "Previred",
-                documento: "Egreso #22",
-                total: "733654"
-            }
-        ],
-        colNames: ['id', 'Detalle', 'Documento', 'Total'],
-        colModel: [
-            {
-                name: 'id',
-                index: 'id',
-                hidden: true
-            },
-            {
-                name: 'detalle',
-                index: 'detalle',
-                editable: false
-            },
-            {
-                name: 'documento',
-                index: 'documento',
-                editable: true
-            },
-            {
-                name: 'total',
-                index: 'total',
-                align: "right",
-                editable: true
-            }
-        ]
-    };
-
+    return UserModel;
 });
+
 
 "use strict";
 
@@ -7370,125 +7402,127 @@ angular.module('app').factory('Todo', function (Restangular, APP_CONFIG, $httpBa
 });
 'use strict';
 
-angular.module('app.expenseReport').directive('jqGrid2', function ($compile) {
-    var jqGridCounter = 0;
+angular
+    .module('app.expenseReport')
+    .directive('jqGrid', function ($compile) {
+        var jqGridCounter = 0;
 
-    return {
-        replace: true,
-        restrict: 'E',
-        scope: {
-            gridData: '='
-        },
-        template: '<div>' +
+        return {
+            replace: true,
+            restrict: 'E',
+            scope: {
+                gridData: '='
+            },
+            template: '<div>' +
             '<table></table>' +
             '<div class="jqgrid-pagination"></div>' +
             '</div>',
-        controller: function($scope, $element){
-            $scope.editRow  = function(row){
-                $element.find('table').editRow(row);
-            };
-            $scope.saveRow  = function(row){
-                $element.find('table').saveRow(row);
-            };
-            $scope.restoreRow  = function(row){
-                $element.find('table').restoreRow(row);
-            };
-        },
-        link: function (scope, element) {
-            var gridNumber = jqGridCounter++;
-            var wrapperId = 'jqgrid-' + gridNumber;
-            element.attr('id', wrapperId);
+            controller: function ($scope, $element) {
+                $scope.editRow = function (row) {
+                    $element.find('table').editRow(row);
+                };
+                $scope.saveRow = function (row) {
+                    $element.find('table').saveRow(row);
+                };
+                $scope.restoreRow = function (row) {
+                    $element.find('table').restoreRow(row);
+                };
+            },
+            link: function (scope, element) {
+                var gridNumber = jqGridCounter++;
+                var wrapperId = 'jqgrid-' + gridNumber;
+                element.attr('id', wrapperId);
 
-            var tableId = 'jqgrid-table-' + gridNumber;
-            var table = element.find('table');
-            table.attr('id', tableId);
+                var tableId = 'jqgrid-table-' + gridNumber;
+                var table = element.find('table');
+                table.attr('id', tableId);
 
-            var pagerId = 'jqgrid-pager-' + gridNumber;
-            element.find('.jqgrid-pagination').attr('id', pagerId);
-
-
-            table.jqGrid({
-                data : scope.gridData.data,
-                datatype : "local",
-                height : 'auto',
-                colNames : scope.gridData.colNames || [],
-                colModel : scope.gridData.colModel || [],
-                rowNum : 10,
-                rowList : [10, 20, 30],
-                pager : '#' + pagerId,
-                sortname : 'id',
-                toolbarfilter : true,
-                viewrecords : true,
-                sortorder : "asc",
-                gridComplete : function() {
-                    var ids = table.jqGrid('getDataIDs');
-                    for (var i = 0; i < ids.length; i++) {
-                        var cl = ids[i];
-                        var be = "<button class='btn btn-xs btn-default' uib-tooltip='Edit Row' tooltip-append-to-body='true' ng-click='editRow("+ cl +")'><i class='fa fa-pencil'></i></button>";
-
-                        var se = "<button class='btn btn-xs btn-default' uib-tooltip='Save Row' tooltip-append-to-body='true' ng-click='saveRow("+ cl +")'><i class='fa fa-save'></i></button>";
-
-                        var ca = "<button class='btn btn-xs btn-default' uib-tooltip='Cancel' tooltip-append-to-body='true' ng-click='restoreRow("+ cl +")'><i class='fa fa-times'></i></button>";
-
-                        table.jqGrid('setRowData', ids[i], {
-                            act : be + se + ca
-                        });
-                    }
-                },
-                editurl : "dummy.html",
-                caption : scope.gridData.caption,
-                multiselect : true,
-                autowidth : true
-
-            });
-            table.jqGrid('navGrid', '#' + pagerId, {
-                edit : false,
-                add : false,
-                del : true
-            });
-            table.jqGrid('inlineNav', '#' + pagerId);
+                var pagerId = 'jqgrid-pager-' + gridNumber;
+                element.find('.jqgrid-pagination').attr('id', pagerId);
 
 
-            element.find(".ui-jqgrid").removeClass("ui-widget ui-widget-content");
-            element.find(".ui-jqgrid-view").children().removeClass("ui-widget-header ui-state-default");
-            element.find(".ui-jqgrid-labels, .ui-search-toolbar").children().removeClass("ui-state-default ui-th-column ui-th-ltr");
-            element.find(".ui-jqgrid-pager").removeClass("ui-state-default");
-            element.find(".ui-jqgrid").removeClass("ui-widget-content");
+                table.jqGrid({
+                    data: scope.gridData.data,
+                    datatype: "local",
+                    height: 'auto',
+                    colNames: scope.gridData.colNames || [],
+                    colModel: scope.gridData.colModel || [],
+                    rowNum: 10,
+                    rowList: [10, 20, 30],
+                    pager: '#' + pagerId,
+                    sortname: 'id',
+                    toolbarfilter: true,
+                    viewrecords: true,
+                    sortorder: "asc",
+                    gridComplete: function () {
+                        var ids = table.jqGrid('getDataIDs');
+                        for (var i = 0; i < ids.length; i++) {
+                            var cl = ids[i];
+                            var be = "<button class='btn btn-xs btn-default' uib-tooltip='Edit Row' tooltip-append-to-body='true' ng-click='editRow(" + cl + ")'><i class='fa fa-pencil'></i></button>";
 
-            // add classes
-            element.find(".ui-jqgrid-htable").addClass("table table-bordered table-hover");
-            element.find(".ui-jqgrid-btable").addClass("table table-bordered table-striped");
+                            var se = "<button class='btn btn-xs btn-default' uib-tooltip='Save Row' tooltip-append-to-body='true' ng-click='saveRow(" + cl + ")'><i class='fa fa-save'></i></button>";
 
-            element.find(".ui-pg-div").removeClass().addClass("btn btn-sm btn-primary");
-            element.find(".ui-icon.ui-icon-plus").removeClass().addClass("fa fa-plus");
-            element.find(".ui-icon.ui-icon-pencil").removeClass().addClass("fa fa-pencil");
-            element.find(".ui-icon.ui-icon-trash").removeClass().addClass("fa fa-trash-o");
-            element.find(".ui-icon.ui-icon-search").removeClass().addClass("fa fa-search");
-            element.find(".ui-icon.ui-icon-refresh").removeClass().addClass("fa fa-refresh");
-            element.find(".ui-icon.ui-icon-disk").removeClass().addClass("fa fa-save").parent(".btn-primary").removeClass("btn-primary").addClass("btn-success");
-            element.find(".ui-icon.ui-icon-cancel").removeClass().addClass("fa fa-times").parent(".btn-primary").removeClass("btn-primary").addClass("btn-danger");
+                            var ca = "<button class='btn btn-xs btn-default' uib-tooltip='Cancel' tooltip-append-to-body='true' ng-click='restoreRow(" + cl + ")'><i class='fa fa-times'></i></button>";
 
-            element.find(".ui-icon.ui-icon-seek-prev").wrap("<div class='btn btn-sm btn-default'></div>");
-            element.find(".ui-icon.ui-icon-seek-prev").removeClass().addClass("fa fa-backward");
+                            table.jqGrid('setRowData', ids[i], {
+                                act: be + se + ca
+                            });
+                        }
+                    },
+                    editurl: "dummy.html",
+                    caption: scope.gridData.caption,
+                    multiselect: true,
+                    autowidth: true
 
-            element.find(".ui-icon.ui-icon-seek-first").wrap("<div class='btn btn-sm btn-default'></div>");
-            element.find(".ui-icon.ui-icon-seek-first").removeClass().addClass("fa fa-fast-backward");
-
-            element.find(".ui-icon.ui-icon-seek-next").wrap("<div class='btn btn-sm btn-default'></div>");
-            element.find(".ui-icon.ui-icon-seek-next").removeClass().addClass("fa fa-forward");
-
-            element.find(".ui-icon.ui-icon-seek-end").wrap("<div class='btn btn-sm btn-default'></div>");
-            element.find(".ui-icon.ui-icon-seek-end").removeClass().addClass("fa fa-fast-forward");
-
-            $(window).on('resize.jqGrid', function() {
-               table.jqGrid('setGridWidth', $("#content").width());
-            });
+                });
+                table.jqGrid('navGrid', '#' + pagerId, {
+                    edit: false,
+                    add: false,
+                    del: true
+                });
+                table.jqGrid('inlineNav', '#' + pagerId);
 
 
-            $compile(element.contents())(scope);
+                element.find(".ui-jqgrid").removeClass("ui-widget ui-widget-content");
+                element.find(".ui-jqgrid-view").children().removeClass("ui-widget-header ui-state-default");
+                element.find(".ui-jqgrid-labels, .ui-search-toolbar").children().removeClass("ui-state-default ui-th-column ui-th-ltr");
+                element.find(".ui-jqgrid-pager").removeClass("ui-state-default");
+                element.find(".ui-jqgrid").removeClass("ui-widget-content");
+
+                // add classes
+                element.find(".ui-jqgrid-htable").addClass("table table-bordered table-hover");
+                element.find(".ui-jqgrid-btable").addClass("table table-bordered table-striped");
+
+                element.find(".ui-pg-div").removeClass().addClass("btn btn-sm btn-primary");
+                element.find(".ui-icon.ui-icon-plus").removeClass().addClass("fa fa-plus");
+                element.find(".ui-icon.ui-icon-pencil").removeClass().addClass("fa fa-pencil");
+                element.find(".ui-icon.ui-icon-trash").removeClass().addClass("fa fa-trash-o");
+                element.find(".ui-icon.ui-icon-search").removeClass().addClass("fa fa-search");
+                element.find(".ui-icon.ui-icon-refresh").removeClass().addClass("fa fa-refresh");
+                element.find(".ui-icon.ui-icon-disk").removeClass().addClass("fa fa-save").parent(".btn-primary").removeClass("btn-primary").addClass("btn-success");
+                element.find(".ui-icon.ui-icon-cancel").removeClass().addClass("fa fa-times").parent(".btn-primary").removeClass("btn-primary").addClass("btn-danger");
+
+                element.find(".ui-icon.ui-icon-seek-prev").wrap("<div class='btn btn-sm btn-default'></div>");
+                element.find(".ui-icon.ui-icon-seek-prev").removeClass().addClass("fa fa-backward");
+
+                element.find(".ui-icon.ui-icon-seek-first").wrap("<div class='btn btn-sm btn-default'></div>");
+                element.find(".ui-icon.ui-icon-seek-first").removeClass().addClass("fa fa-fast-backward");
+
+                element.find(".ui-icon.ui-icon-seek-next").wrap("<div class='btn btn-sm btn-default'></div>");
+                element.find(".ui-icon.ui-icon-seek-next").removeClass().addClass("fa fa-forward");
+
+                element.find(".ui-icon.ui-icon-seek-end").wrap("<div class='btn btn-sm btn-default'></div>");
+                element.find(".ui-icon.ui-icon-seek-end").removeClass().addClass("fa fa-fast-forward");
+
+                $(window).on('resize.jqGrid', function () {
+                    table.jqGrid('setGridWidth', $("#content").width());
+                });
+
+
+                $compile(element.contents())(scope);
+            }
         }
-    }
-});
+    });
 'use strict';
 
 angular.module('app.graphs').directive('chartjsBarChart', function () {
