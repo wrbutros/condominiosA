@@ -25,7 +25,7 @@ angular.module('app').controller("LanguagesCtrl",  function LanguagesCtrl($scope
             $rootScope.lang = data;
             
         });
-    }
+    };
 
     $rootScope.getWord = function(key){
         if(angular.isDefined($rootScope.lang[key])){
@@ -34,6 +34,6 @@ angular.module('app').controller("LanguagesCtrl",  function LanguagesCtrl($scope
         else {
             return key;
         }
-    }
+    };
 
 });

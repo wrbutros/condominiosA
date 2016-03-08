@@ -41,6 +41,7 @@ angular.module('app.tables').directive('jqGrid', function ($compile) {
                 data : scope.gridData.data,
                 datatype : "local",
                 height : 'auto',
+                hiddengrid: scope.gridData.hiddengrid,
                 colNames : scope.gridData.colNames || [],
                 colModel : scope.gridData.colModel || [],
                 rowNum : 10,

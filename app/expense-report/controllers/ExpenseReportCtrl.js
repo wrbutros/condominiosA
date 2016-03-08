@@ -10,6 +10,7 @@ angular
         // http://url_backend/v1/expense/report
         $scope.gridData = {
             caption: "ADMINISTRACION-REMUNERACIONES",
+            hiddengrid: true,
             data: [
                 {
                     id: "1",
@@ -52,6 +53,7 @@ angular
 
         $scope.gridData2 = {
             caption: "CONSUMOS",
+            hiddengrid: true,
             data: [
                 {
                     id: "1",
@@ -94,6 +96,7 @@ angular
 
         $scope.gridData3 = {
             caption: "MANTENCIONES",
+            hiddengrid: true,
             data: [
                 {
                     id: "1",
@@ -136,6 +139,7 @@ angular
 
         $scope.gridData4 = {
             caption: "REPARACIONES",
+            hiddengrid: true,
             data: [
                 {
                     id: "1",
@@ -178,6 +182,7 @@ angular
 
         $scope.gridData5 = {
             caption: "VARIOS",
+            hiddengrid: true,
             data: [
                 {
                     id: "1",
@@ -220,6 +225,7 @@ angular
 
         $scope.gridData6 = {
             caption: "GASTOS A COBRAR / DESCONTAR",
+            hiddengrid: true,
             data: [
                 {
                     id: "1",
@@ -260,4 +266,5 @@ angular
             ]
         };
 
+        //$scope.breadOne = "Build ???";
     });
