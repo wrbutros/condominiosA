@@ -53,6 +53,18 @@ angular.module('app.tables').directive('jqGrid', function ($compile) {
                 toolbarfilter : true,
                 viewrecords : false,
                 sortorder : "asc",
+                footerrow: true,
+                userDataOnFooter: true,
+                grouping:true,
+                groupingView:
+                {
+                    groupField: ["tipoGasto"],
+                    groupColumnShow: [false],
+                    groupText: ["<b>{0}</b>"],
+                    groupSummary: [true],
+                    groupCollapse: false,
+                    groupDataSorted: true
+                },
                 gridComplete : function() {
                     var ids = table.jqGrid('getDataIDs');
                     for (var i = 0; i < ids.length; i++) {
@@ -67,6 +79,10 @@ angular.module('app.tables').directive('jqGrid', function ($compile) {
                             act : be + se + ca
                         });
                     }
+                },
+                loadComplete: function () {
+                    var sum = table.jqGrid("getCol", "total", false, "sum");
+                    table.jqGrid("footerData", "set", {documento: "Total:", total: sum});
                 },
                 editurl : "clientArray",
                 caption : scope.gridData.caption,
