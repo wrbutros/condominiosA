@@ -3057,7 +3057,15 @@ angular
                     index: 'id',
                     hidden: true
                 },
-                { name: 'tipoGasto', index: 'tipoGasto'},
+                {
+                    name: 'tipoGasto',
+                    index: 'tipoGasto',
+                    editable: true,
+                    edittype:"select",
+                    editoptions: {
+                        value: 'ADMINISTRACION-REMUNERACIONES:ADMINISTRACION-REMUNERACIONES;CONSUMO:CONSUMO;MANTENCIONES:MANTENCIONES'
+                    }
+                },
                 {
                     name: 'detalle',
                     index: 'detalle',
@@ -9832,7 +9840,7 @@ angular.module('app.tables').directive('jqGrid', function ($compile) {
                 groupingView:
                 {
                     groupField: ["tipoGasto"],
-                    groupColumnShow: [false],
+                    groupColumnShow: [true],
                     groupText: ["<b>{0}</b>"],
                     groupSummary: [true],
                     groupCollapse: false,

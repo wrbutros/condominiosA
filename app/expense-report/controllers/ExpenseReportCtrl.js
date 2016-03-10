@@ -90,7 +90,15 @@ angular
                     index: 'id',
                     hidden: true
                 },
-                { name: 'tipoGasto', index: 'tipoGasto'},
+                {
+                    name: 'tipoGasto',
+                    index: 'tipoGasto',
+                    editable: true,
+                    edittype:"select",
+                    editoptions: {
+                        value: 'ADMINISTRACION-REMUNERACIONES:ADMINISTRACION-REMUNERACIONES;CONSUMO:CONSUMO;MANTENCIONES:MANTENCIONES'
+                    }
+                },
                 {
                     name: 'detalle',
                     index: 'detalle',

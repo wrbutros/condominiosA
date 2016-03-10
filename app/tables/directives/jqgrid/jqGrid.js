@@ -59,7 +59,7 @@ angular.module('app.tables').directive('jqGrid', function ($compile) {
                 groupingView:
                 {
                     groupField: ["tipoGasto"],
-                    groupColumnShow: [false],
+                    groupColumnShow: [true],
                     groupText: ["<b>{0}</b>"],
                     groupSummary: [true],
                     groupCollapse: false,
