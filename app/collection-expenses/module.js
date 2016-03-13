@@ -14,6 +14,15 @@ angular.module('app.collectionExpenses', ['ui.router'])
                     templateUrl: 'app/collection-expenses/views/index.html',
                     controller: 'CollectionExpensesCtrl'
                 }
+            },
+            resolve: {
+                scripts: function(lazyScript){
+                    return lazyScript.register([
+                        'smartadmin-plugin/legacy/jqgrid/js/minified/jquery.jqGrid.min.js',
+                        'smartadmin-plugin/legacy/jqgrid/js/i18n/grid.locale-en.js'
+                    ])
+
+                }
             }
         })
 

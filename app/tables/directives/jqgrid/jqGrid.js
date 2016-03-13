@@ -2,7 +2,7 @@
 
 angular
     .module('app.tables')
-    .directive('jqGrid', function ($compile, $location) {
+    .directive('jqGrid', function ($compile) {
         var jqGridCounter = 0;
 
         return {
@@ -41,7 +41,7 @@ angular
                 table.jqGrid({
                     data: scope.gridData.data,
                     datatype: "local",
-                    height: 400,
+                    height: scope.gridData.height,
                     hiddengrid: scope.gridData.hiddengrid,
                     colNames: scope.gridData.colNames || [],
                     colModel: scope.gridData.colModel || [],
@@ -108,17 +108,9 @@ angular
 
                 table.navSeparatorAdd("#" + pagerId);
 
-                table.jqGrid('navButtonAdd', "#" + pagerId, {
-                    id: "ui-prorrotear",
-                    caption: "Prorrotear",
-                    buttonicon: "ui-icon-newwin",
-                    onClickButton: function () {
-                        $location.path('/collection/expenses')
-                    },
-                    position: "last",
-                    title: "Prorrotear",
-                    cursor: "pointer"
-                });
+                if(scope.gridData.customButton !== undefined) {
+                    table.jqGrid('navButtonAdd', "#" + pagerId, scope.gridData.customButton);
+                }
 
                 element.find(".ui-jqgrid").removeClass("ui-widget ui-widget-content");
                 element.find(".ui-jqgrid-view").children().removeClass("ui-widget-header ui-state-default");

@@ -5,15 +5,12 @@ angular
     .service('userService', function () {
         this.users = ['John', 'James', 'Jake'];
     })
-    .controller('ExpenseReportCtrl', function ($scope) {
+    .controller('ExpenseReportCtrl', function ($scope, $location) {
 
-            // Se convierte en RESTANGULAR y consumo un servicio
-            // "URL_BACK"/v1/expense/report
-            // 0.0.0.0:8882/v1/expense/report
-            // http://url_backend/v1/expense/report
             $scope.gridData = {
                 caption: "Gastos Comunes",
                 //editurl: "localhost:8882/v1/entrypoint",
+                height: 400,
                 hiddengrid: false,
                 hidegrid: false,
                 colNames: ['id', 'Tipo Gasto', 'Detalle', 'Documento', 'Ingreso', 'Egreso'],
@@ -147,6 +144,18 @@ angular
                         egreso: "733655"
                     }
                 ]
+            };
+
+            $scope.gridData.customButton = {
+                id: "ui-prorrotear",
+                caption: "Prorrotear",
+                buttonicon: "ui-icon-newwin",
+                onClickButton: function () {
+                    $location.path('/collection/expenses')
+                },
+                position: "last",
+                title: "Prorrotear",
+                cursor: "pointer"
             };
 
             //$scope.getData = Restangular.all('entrypoint').getList();
