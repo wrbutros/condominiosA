@@ -18,4 +18,10 @@
  * - CUSTOM STYLES
  */
 
- 
+.ui-jqgrid .ui-jqgrid-titlebar {
+    padding: 5px 5px;
+}
+
+.footrow {
+    font-size: 1.3em;
+}

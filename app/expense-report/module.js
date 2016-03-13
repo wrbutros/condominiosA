@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('app.expenseReport', ['ui.router'])
+angular.module('app.expenseReport', ['ui.router', 'restangular'])
 .config(function ($stateProvider) {
 
     $stateProvider

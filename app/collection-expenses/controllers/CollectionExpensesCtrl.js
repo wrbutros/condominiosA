@@ -1,29 +1,8 @@
 'use strict';
 
-angular.module('app.collectionExpenses').controller('CollectionExpensesCtrl', function ($scope, projects) {
+angular
+    .module('app.collectionExpenses')
+    .controller('CollectionExpensesCtrl', function ($scope) {
 
-    /*$scope.projects = projects.data;
 
-    $scope.tableOptions =  {
-        "data": projects.data.data,
-//            "bDestroy": true,
-        "iDisplayLength": 15,
-        "columns": [
-            {
-                "class":          'details-control',
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ''
-            },
-            { "data": "name" },
-            { "data": "est" },
-            { "data": "contacts" },
-            { "data": "status" },
-            { "data": "target-actual" },
-            { "data": "starts" },
-            { "data": "ends" },
-            { "data": "tracker" }
-        ],
-        "order": [[1, 'asc']]
-    }*/
 });

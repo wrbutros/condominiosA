@@ -2,15 +2,15 @@
 
 angular
     .module('app.tables')
-    .directive('jqGrid', function ($compile) {
+    .directive('jqGrid', function ($compile, $location) {
         var jqGridCounter = 0;
 
         return {
             replace: true,
             restrict: 'E',
             template: '<div>' +
-            '<div class="jqgrid-pagination"></div>' +
             '<table></table>' +
+            '<div class="jqgrid-pagination"></div>' +
             '</div>',
             scope: {
                 gridData: '='
@@ -38,7 +38,6 @@ angular
                 var pagerId = 'jqgrid-pager-' + gridNumber;
                 element.find('.jqgrid-pagination').attr('id', pagerId);
 
-
                 table.jqGrid({
                     data: scope.gridData.data,
                     datatype: "local",
@@ -65,22 +64,10 @@ angular
                         groupText: ["<b>{0}</b>"],
                         groupSummary: [true],
                         groupCollapse: false,
-                        groupDataSorted: true
+                        groupDataSorted: false
                     },
                     gridComplete: function () {
-                        var ids = table.jqGrid('getDataIDs');
-                        for (var i = 0; i < ids.length; i++) {
-                            var cl = ids[i];
-                            var be = "<button class='btn btn-xs btn-default' uib-tooltip='Edit Row' tooltip-append-to-body='true' ng-click='editRow(" + cl + ")'><i class='fa fa-pencil'></i></button>";
 
-                            var se = "<button class='btn btn-xs btn-default' uib-tooltip='Save Row' tooltip-append-to-body='true' ng-click='saveRow(" + cl + ")'><i class='fa fa-save'></i></button>";
-
-                            var ca = "<button class='btn btn-xs btn-default' uib-tooltip='Cancel' tooltip-append-to-body='true' ng-click='restoreRow(" + cl + ")'><i class='fa fa-times'></i></button>";
-
-                            table.jqGrid('setRowData', ids[i], {
-                                act: be + se + ca
-                            });
-                        }
                     },
                     loadComplete: function () {
                         var ingreso = table.jqGrid("getCol", "ingreso", false, "sum");
@@ -91,17 +78,47 @@ angular
                         });
                     },
                     editurl: "clientArray",
+                    //editurl: scope.gridData.editurl,
                     caption: scope.gridData.caption,
                     multiselect: false,
                     autowidth: true
                 });
                 table.jqGrid('navGrid', '#' + pagerId, {
                     add: false,
-                    cloneToTop: true,
+                    refresh: false,
                     edit: false,
+                    search: false,
                     del: true
                 });
-                table.jqGrid('inlineNav', '#' + pagerId);
+                table.jqGrid('inlineNav', '#' + pagerId, {
+                    editParams: {
+                        keys: true,
+                        aftersavefunc: function (id) {
+                            table.trigger("reloadGrid");
+                        }
+                    },
+                    addParams: {
+                        addRowParams: {
+                            aftersavefunc: function (id) {
+                                table.trigger("reloadGrid");
+                            }
+                        }
+                    }
+                });
+
+                table.navSeparatorAdd("#" + pagerId);
+
+                table.jqGrid('navButtonAdd', "#" + pagerId, {
+                    id: "ui-prorrotear",
+                    caption: "Prorrotear",
+                    buttonicon: "ui-icon-newwin",
+                    onClickButton: function () {
+                        $location.path('/collection/expenses')
+                    },
+                    position: "last",
+                    title: "Prorrotear",
+                    cursor: "pointer"
+                });
 
                 element.find(".ui-jqgrid").removeClass("ui-widget ui-widget-content");
                 element.find(".ui-jqgrid-view").children().removeClass("ui-widget-header ui-state-default");
@@ -119,8 +136,12 @@ angular
                 element.find(".ui-icon.ui-icon-trash").removeClass().addClass("fa fa-trash-o");
                 element.find(".ui-icon.ui-icon-search").removeClass().addClass("fa fa-search");
                 element.find(".ui-icon.ui-icon-refresh").removeClass().addClass("fa fa-refresh");
+
                 element.find(".ui-icon.ui-icon-disk").removeClass().addClass("fa fa-save").parent(".btn-primary").removeClass("btn-primary").addClass("btn-success");
+
                 element.find(".ui-icon.ui-icon-cancel").removeClass().addClass("fa fa-times").parent(".btn-primary").removeClass("btn-primary").addClass("btn-danger");
+
+                element.find(".ui-icon.ui-icon-newwin").removeClass().addClass("glyphicon glyphicon-list").parent(".btn-primary").removeClass("btn-primary").addClass("btn-success");
 
                 element.find(".ui-icon.ui-icon-seek-prev").wrap("<div class='btn btn-sm btn-default'></div>");
                 element.find(".ui-icon.ui-icon-seek-prev").removeClass().addClass("fa fa-backward");

@@ -44,6 +44,7 @@ angular
     .config(function ($provide, $httpProvider, RestangularProvider) {
 
 
+
         // Intercept http calls.
         $provide.factory('ErrorHttpInterceptor', function ($q) {
             var errorCounter = 0;
@@ -83,7 +84,10 @@ angular
         // Add the interceptor to the $httpProvider.
         $httpProvider.interceptors.push('ErrorHttpInterceptor');
 
-        RestangularProvider.setBaseUrl(location.pathname.replace(/[^\/]+?$/, ''));
+        RestangularProvider.setBaseUrl(
+            //location.pathname.replace(/[^\/]+?$/, '')
+            "http://localhost:8882/v1/"
+        );
 
     })
     .constant('APP_CONFIG', window.appConfig)
