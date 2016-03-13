@@ -94,13 +94,14 @@ angular
                     editParams: {
                         keys: true,
                         aftersavefunc: function (id) {
-                            table.trigger("reloadGrid");
+                            table.trigger("reloadGrid", [{current:true}]);
                         }
                     },
                     addParams: {
                         addRowParams: {
+                            keys: true,
                             aftersavefunc: function (id) {
-                                table.trigger("reloadGrid");
+                                table.trigger("reloadGrid", [{current:true}]);
                             }
                         }
                     }
