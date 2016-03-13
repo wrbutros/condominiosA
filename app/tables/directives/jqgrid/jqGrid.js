@@ -66,8 +66,9 @@ angular
                         groupCollapse: false,
                         groupDataSorted: false
                     },
-                    gridComplete: function () {
-
+                    gridComplete: function () {},
+                    ondblClickRow: function() {
+                        debugger;
                     },
                     loadComplete: function () {
                         var ingreso = table.jqGrid("getCol", "ingreso", false, "sum");
