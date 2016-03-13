@@ -15,7 +15,7 @@ angular.module('app.graphs').directive('chartjsLineChart', function () {
                 //Number - Width of the grid lines
                 scaleGridLineWidth : 1,
                 //Boolean - Whether the line is curved between points
-                bezierCurve : true,
+                bezierCurve : false,
                 //Number - Tension of the bezier curve between points
                 bezierCurveTension : 0.4,
                 //Boolean - Whether to show a dot for each point
@@ -35,38 +35,30 @@ angular.module('app.graphs').directive('chartjsLineChart', function () {
                 //Boolean - Re-draw chart on page resize
                 responsive: true,
                 //String - A legend template
-                legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+                legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
+                //scaleLabel : "<%= '$' + Number(value).toFixed().replace('.', ',')%>"
+                scaleLabel : function (label) { return "$" + Number(label.value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); },
+                //tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>"
+                tooltipTemplate: function (data) { return data.label + ": $" + Number(data.value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); },
             };
 
-            var lineData = { labels: ["January", "February", "March", "April", "May", "June", "July"],
+            var lineData = { labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
                 datasets: [
                     {
-                        label: "My First dataset",
-                        fillColor: "rgba(220,220,220,0.2)",
-                        strokeColor: "rgba(220,220,220,1)",
-                        pointColor: "rgba(220,220,220,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(220,220,220,1)",
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    },
-                    {
-                        label: "My Second dataset",
+                        label: "dataset",
                         fillColor: "rgba(151,187,205,0.2)",
                         strokeColor: "rgba(151,187,205,1)",
                         pointColor: "rgba(151,187,205,1)",
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(151,187,205,1)",
-                        data: [28, 48, 40, 19, 86, 27, 90]
+                        data: [11456789, 12456734, 15475637, 13456321, 14567432, 16543876, 19345687]
                     }
                 ]
             };
 
             var ctx = element[0].getContext("2d");
             var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
-
-
 
         }
     }
