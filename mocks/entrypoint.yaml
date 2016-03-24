@@ -10,11 +10,22 @@
       charset: utf8
 
 - request:
-    url: /v1/expense/report
+    url: /v1/expense/report/45
     method: GET
   response:
     latency: 500
     file: 'mocks/expense.json'
+    status: 200
+    headers:
+      content-type: application/json
+      charset: utf8
+
+- request:
+    url: /v1/expense/report/45
+    method: POST
+  response:
+    latency: 500
+    file: 'mocks/blabla.json'
     status: 200
     headers:
       content-type: application/json

@@ -20,6 +20,9 @@ angular
         // Smartadmin Angular Common Module
         'SmartAdmin',
 
+        //
+        //'app.expenses',
+
         // App
         'app.auth',
         'app.layout',
@@ -37,9 +40,12 @@ angular
         'app.misc',
         'app.smartAdmin',
         'app.eCommerce',
+
+        // Rendición de Gastos (Gastos Comunes)
         'app.expenseReport',
-        'app.collectionExpenses',
-        'app.buildingExpenses'
+
+        // Cobranza de Gastos
+        'app.collectionExpenses'
     ])
     .config(function ($provide, $httpProvider, RestangularProvider) {
 
