@@ -21,6 +21,17 @@
       charset: utf8
 
 - request:
+    url: /v1/expenseDetails/report/10
+    method: GET
+  response:
+    latency: 500
+    file: 'mocks/expenseDetails.json'
+    status: 200
+    headers:
+      content-type: application/json
+      charset: utf8
+
+- request:
     url: /v1/expense/report/45
     method: POST
   response:

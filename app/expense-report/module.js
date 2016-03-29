@@ -26,10 +26,10 @@ angular
                         return lazyScript.register([
                             'smartadmin-plugin/legacy/jqgrid/js/minified/jquery.jqGrid.min.js',
                             'smartadmin-plugin/legacy/jqgrid/js/i18n/grid.locale-en.js'
-                        ])
+                        ]);
 
                     }
                 }
-            })
+            });
 
     });

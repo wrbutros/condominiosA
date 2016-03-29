@@ -15,14 +15,11 @@ angular
                 caption: "Prorrotear",
                 buttonicon: "ui-icon-newwin",
                 onClickButton: function () {
-                    $location.path('/collection/expenses')
+                    $location.path('/collection/expenses');
                 },
                 position: "last",
                 title: "Prorrotear",
                 cursor: "pointer"
             };
 
-        }
-    )
-;
-
+        });
