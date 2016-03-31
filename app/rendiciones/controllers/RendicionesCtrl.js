@@ -1,9 +1,9 @@
 'use strict';
 
 angular
-    .module('app.expenseReport')
+    .module('app.rendiciones')
     .controller(
-        'ExpenseReportCtrl',
+        'RendicionesCtrl',
         function ($scope,
                   $location,
                   gridDataRaw) {

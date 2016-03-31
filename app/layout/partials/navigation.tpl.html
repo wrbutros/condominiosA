@@ -16,7 +16,7 @@
                         class="menu-item-parent">{{getWord('Dashboard')}}</span></a>
                 <ul>
                     <li data-ui-sref-active="active">
-                        <a data-ui-sref="app.dashboard">{{getWord('Dashboard One')}}</a>
+                        <a data-ui-sref="app.dashboard({id_condominio:'1', id_dashboard:'1'})">{{getWord('Dashboard One')}}</a>
                     </li>
                 </ul>
             </li>
@@ -27,10 +27,10 @@
                 </a>
                 <ul>
                     <li data-ui-sref-active="active">
-                        <a data-ui-sref="app.expenseReport({id:'45'})">{{getWord('Expense Report')}}</a>
+                        <a data-ui-sref="app.rendicionesMes({id_condominio:'1', id_rendiciones:'45'})">{{getWord('Expense Report')}}</a>
                     </li>
                     <li data-ui-sref-active="active">
-                        <a data-ui-sref="app.collectionExpenses">{{getWord('Collection Expenses')}}</a>
+                        <a data-ui-sref="app.collectionExpenses({id:'1'})">{{getWord('Collection Expenses')}}</a>
                     </li>
                 </ul>
             </li>

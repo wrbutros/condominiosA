@@ -43,7 +43,7 @@ angular
         'app.dashboard',
 
         // Rendición de Gastos (Gastos Comunes)
-        'app.expenseReport',
+        'app.rendiciones',
 
         // Cobranza de Gastos
         'app.collectionExpenses'
@@ -106,5 +106,3 @@ angular
         // editableOptions.theme = 'bs3';
 
     });
-
-
