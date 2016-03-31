@@ -66,8 +66,9 @@ angular
                         groupCollapse: false,
                         groupDataSorted: false
                     },
-                    gridComplete: function () {},
-                    ondblClickRow: function() {
+                    gridComplete: function () {
+                    },
+                    ondblClickRow: function () {
                         debugger;
                     },
                     loadComplete: function () {
@@ -95,14 +96,14 @@ angular
                     editParams: {
                         keys: true,
                         aftersavefunc: function (id) {
-                            table.trigger("reloadGrid", [{current:true}]);
+                            table.trigger("reloadGrid", [{current: true}]);
                         }
                     },
                     addParams: {
                         addRowParams: {
                             keys: true,
                             aftersavefunc: function (id) {
-                                table.trigger("reloadGrid", [{current:true}]);
+                                table.trigger("reloadGrid", [{current: true}]);
                             }
                         }
                     }
@@ -110,7 +111,7 @@ angular
 
                 table.navSeparatorAdd("#" + pagerId);
 
-                if(scope.gridData.customButton !== undefined) {
+                if (scope.gridData.customButton !== undefined) {
                     table.jqGrid('navButtonAdd', "#" + pagerId, scope.gridData.customButton);
                 }
 

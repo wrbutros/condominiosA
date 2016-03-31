@@ -24,7 +24,66 @@ To build minified version:
 
 ***********************************************
 
-...
+##Buenas Practicas
+
+* https://es.wikipedia.org/wiki/SOLID
+* https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
+* https://en.wikipedia.org/wiki/KISS_principle
+
+***********************************************
+
+##Entidades
+
+Una entidad es toda unidad que tiene valor en la lógica de negocio.
+
+###Administrador
+
+No es una entidad expuesta, quizas no tenga REST.
+
+* administrador/id/dashbaord/id
+
+###Condominio
+
+* condominios
+* condominios/id
+
+####Dashboard
+* condominios/id/dashboard/id (igual a dashboard/id)
+
+###Rendicion
+
+* condominios/id/rendiciones
+* condominios/id/rendiciones/id
+
+###Glosa
+
+* rendiciones/id/glosas
+* rendiciones/id/glosas/id
+
+###Departamento
+
+* condominios/id/departamentos
+* condominios/id/departamentos/id
+
+###Otros
+
+edificio
+
+******************************************************************
+
+##API
+
+###Material de referencia
+* https://github.com/mikekelly/hal-browser
+* http://martinfowler.com/articles/richardsonMaturityModel.html
+
+Tiene como punto de partida "entrypoint"
+
+* URL_BASE/entrypoint (GET)
+* URL_BASE/login (POST)
+* URL_BASE/logout (POST)
+
+** Son URL, van a gatillar acciones, pero no son entidades como tal.
 
 ******************************************************************
 

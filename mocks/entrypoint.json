@@ -1,5 +1,10 @@
-[
-  {
-    "condominios": "obj"
+{
+  "_links": {
+    "self": {
+      "href": "/v1/entrypoint"
+    },
+    "page": {
+      "href": "/v1/login"
+    }
   }
-]
+}

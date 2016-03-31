@@ -1,7 +1,10 @@
 "use strict";
 
 angular
-    .module('app.expenseReport', ['ui.router', 'restangular'])
+    .module('app.expenseReport', [
+        'ui.router',
+        'restangular'
+    ])
     .config(function ($stateProvider) {
 
         $stateProvider
@@ -13,8 +16,8 @@ angular
                 },
                 views: {
                     "content@app": {
-                        templateUrl: 'app/expense-report/views/index.html',
-                        controller: 'ExpenseReportCtrl'
+                        controller: 'ExpenseReportCtrl',
+                        templateUrl: 'app/expense-report/views/index.html'
                     }
                 },
                 resolve: {

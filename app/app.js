@@ -27,7 +27,6 @@ angular
         'app.auth',
         'app.layout',
         'app.chat',
-        'app.dashboard',
         'app.calendar',
         'app.inbox',
         'app.graphs',
@@ -40,6 +39,8 @@ angular
         'app.misc',
         'app.smartAdmin',
         'app.eCommerce',
+
+        'app.dashboard',
 
         // Rendición de Gastos (Gastos Comunes)
         'app.expenseReport',

@@ -1,40 +1,38 @@
 'use strict';
 
-angular.module('app.dashboard', [
+angular
+    .module('app.dashboard', [
         'ui.router',
-        'ngResource'
+        'restangular'
     ])
-
     .config(function ($stateProvider) {
         $stateProvider
             .state('app.dashboard', {
-                url: '/dashboard',
+                url: '/condominios/:id_condominio/dashboards/:id_dashboard',
+                data: {
+                    title: 'Dashboard'
+                },
                 views: {
                     "content@app": {
                         controller: 'DashboardCtrl',
                         templateUrl: 'app/dashboard/dashboard.html'
                     }
                 },
-                data: {
-                    title: 'Dashboard'
-                },
                 resolve: {
+                    dashboardDataRaw: function ($stateParams, Restangular) {
+                        var id_condominio = parseInt($stateParams.id_condominio);
+                        var id_dashboard = parseInt($stateParams.id_dashboard);
+
+                        return Restangular
+                            .one("condominios", id_condominio)
+                            .one("dashboards", id_dashboard)
+                            .get();
+                    },
                     scripts: function (lazyScript) {
                         return lazyScript.register([
                             'build/vendor.graphs.js'
                         ]);
                     }
                 }
-            })
-            /*.state('app.dashboard-social', {
-             url: '/dashboard-social',
-             views: {
-             "content@app": {
-             templateUrl: 'app/dashboard/social-wall.html'
-             }
-             },
-             data:{
-             title: 'Dashboard Social'
-             }
-             })*/;
+            });
     });
