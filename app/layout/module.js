@@ -5,7 +5,6 @@ angular.module('app.layout', ['ui.router'])
 
 .config(function ($stateProvider, $urlRouterProvider) {
 
-
     $stateProvider
         .state('app', {
             abstract: true,
@@ -15,7 +14,8 @@ angular.module('app.layout', ['ui.router'])
                 }
             }
         });
-    $urlRouterProvider.otherwise('/dashboard');
 
-})
+    $urlRouterProvider.otherwise('/condominios/1/dashboards/1');
+
+});
 

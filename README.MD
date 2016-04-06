@@ -60,10 +60,24 @@ No es una entidad expuesta, quizas no tenga REST.
 * rendiciones/id/glosas
 * rendiciones/id/glosas/id
 
+###Cobranza
+
+* condominios/id/cobranzas
+* condominios/id/cobranzas/id
+
 ###Departamento
 
 * condominios/id/departamentos
 * condominios/id/departamentos/id
+
+###Servicio
+
+* departamentos/id/servicios (esto trae todos los servicios de un departamento)
+* departamentos/id/servicios/id ("una lectura" de un servicio particular en base al ID)
+ 
+* departamentos/id/servicios?service_type=1 (Solo los servicios de agua -donde agua es service type de ID 1- de un departamento)
+* departamentos/id/servicios?date_star=01012016&date_end=31012016 (Solo los servicios de un departamento entre una fecha especifica)
+
 
 ###Otros
 

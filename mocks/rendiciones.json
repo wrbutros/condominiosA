@@ -3,6 +3,7 @@
   "height": 400,
   "hiddengrid": false,
   "hidegrid": false,
+  "grouping": true,
   "colNames": [
     "id",
     "Tipo Gasto",

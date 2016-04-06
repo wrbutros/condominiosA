@@ -20,9 +20,6 @@ angular
         // Smartadmin Angular Common Module
         'SmartAdmin',
 
-        //
-        //'app.expenses',
-
         // App
         'app.auth',
         'app.layout',
@@ -39,18 +36,11 @@ angular
         'app.misc',
         'app.smartAdmin',
         'app.eCommerce',
-
         'app.dashboard',
-
-        // Rendición de Gastos (Gastos Comunes)
-        'app.rendiciones',
-
-        // Cobranza de Gastos
-        'app.collectionExpenses'
+        'app.rendiciones', // Rendición de Gastos (Gastos Comunes)
+        'app.cobranzas' // Cobranza de Gastos (Planilla de cobros/pagos)
     ])
     .config(function ($provide, $httpProvider, RestangularProvider) {
-
-
 
         // Intercept http calls.
         $provide.factory('ErrorHttpInterceptor', function ($q) {
@@ -94,6 +84,7 @@ angular
         RestangularProvider.setBaseUrl(
             //location.pathname.replace(/[^\/]+?$/, '')
             "http://localhost:8882/v1/"
+            //"http://dominio.django/v1/"
         );
 
     })
@@ -104,5 +95,4 @@ angular
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
         // editableOptions.theme = 'bs3';
-
     });

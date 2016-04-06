@@ -38,7 +38,7 @@ angular
                 var pagerId = 'jqgrid-pager-' + gridNumber;
                 element.find('.jqgrid-pagination').attr('id', pagerId);
 
-                table.jqGrid({
+                var data = {
                     data: scope.gridData.data,
                     datatype: "local",
                     height: scope.gridData.height,
@@ -57,15 +57,6 @@ angular
                     footerrow: true,
                     userDataOnFooter: true,
                     hidegrid: scope.gridData.hidegrid,
-                    grouping: true,
-                    groupingView: {
-                        groupField: ["tipoGasto"],
-                        groupColumnShow: [true],
-                        groupText: ["<b>{0}</b>"],
-                        groupSummary: [true],
-                        groupCollapse: false,
-                        groupDataSorted: false
-                    },
                     gridComplete: function () {
                     },
                     ondblClickRow: function () {
@@ -84,7 +75,24 @@ angular
                     caption: scope.gridData.caption,
                     multiselect: false,
                     autowidth: true
-                });
+                };
+
+                if(scope.gridData.grouping){
+                    var grouping = {
+                        grouping : scope.gridData.grouping,
+                        groupingView: {
+                            groupField: ["tipoGasto"],
+                            groupColumnShow: [true],
+                            groupText: ["<b>{0}</b>"],
+                            groupSummary: [true],
+                            groupCollapse: false,
+                            groupDataSorted: false
+                        }
+                    };
+                    $.extend(data, grouping);
+                }
+
+                table.jqGrid(data);
                 table.jqGrid('navGrid', '#' + pagerId, {
                     add: false,
                     refresh: false,
