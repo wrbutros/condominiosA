@@ -7,6 +7,7 @@ angular
         function ($scope,
                   dashboardDataRaw) {
 
+            debugger;
             $scope.dashboardData = dashboardDataRaw;
 
         });

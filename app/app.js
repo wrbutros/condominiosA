@@ -83,7 +83,8 @@ angular
 
         RestangularProvider.setBaseUrl(
             //location.pathname.replace(/[^\/]+?$/, '')
-            "http://localhost:8882/v1/"
+            //"http://localhost:8882/v1/"
+            "http://localhost:8000/v1/"
             //"http://dominio.django/v1/"
         );
 

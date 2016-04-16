@@ -20,13 +20,15 @@ angular
                 },
                 resolve: {
                     dashboardDataRaw: function ($stateParams, Restangular) {
-                        var id_condominio = parseInt($stateParams.id_condominio);
+                        return Restangular.one("ciudades", 1).get();
+                        /**var id_condominio = parseInt($stateParams.id_condominio);
                         var id_dashboard = parseInt($stateParams.id_dashboard);
 
                         return Restangular
                             .one("condominios", id_condominio)
                             .one("dashboards", id_dashboard)
-                            .get();
+                            .get();**/
+                        
                     },
                     scripts: function (lazyScript) {
                         return lazyScript.register([
