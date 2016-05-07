@@ -15,6 +15,6 @@ angular.module('app.layout', ['ui.router'])
             }
         });
 
-    $urlRouterProvider.otherwise('/condominios/1');
+    $urlRouterProvider.otherwise('/condominios/1/dashboard');
 
 });

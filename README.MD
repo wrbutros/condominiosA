@@ -48,7 +48,7 @@ No es una entidad expuesta, quizas no tenga REST.
 * condominios/id
 
 ####Dashboard
-* condominios/id/dashboard/id (igual a dashboard/id)
+* condominios/id/dashboard
 
 ###Rendicion
 

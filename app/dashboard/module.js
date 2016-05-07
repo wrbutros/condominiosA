@@ -8,7 +8,7 @@ angular
     .config(function ($stateProvider) {
         $stateProvider
             .state('app.dashboard', {
-                url: '/condominios/:id_condominio/dashboards/:id_dashboard',
+                url: '/condominios/:id_condominio/dashboard',
                 data: {
                     title: 'Dashboard'
                 },
@@ -20,13 +20,11 @@ angular
                 },
                 resolve: {
                     dashboardDataRaw: function ($stateParams, Restangular) {
-                        //return Restangular.one("ciudades", 1).get();
                         var id_condominio = parseInt($stateParams.id_condominio);
-                        var id_dashboard = parseInt($stateParams.id_dashboard);
 
                         return Restangular
                             .one("condominios", id_condominio)
-                            .one("dashboards", id_dashboard)
+                            .one("dashboard/")
                             .get();
                         
                     },
