@@ -47,7 +47,6 @@ angular
             var errorCounter = 0;
 
             function notifyError(rejection) {
-                console.log(rejection);
                 $.bigBox({
                     title: rejection.status + ' ' + rejection.statusText,
                     content: rejection.data,

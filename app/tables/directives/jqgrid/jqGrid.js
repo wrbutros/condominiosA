@@ -70,8 +70,8 @@ angular
                             ingreso: ingreso - egreso
                         });
                     },
-                    editurl: "clientArray",
-                    //editurl: scope.gridData.editurl,
+                    //editurl: "clientArray",
+                    editurl: scope.gridData.editurl,
                     caption: scope.gridData.caption,
                     multiselect: false,
                     autowidth: true
