@@ -1,43 +1,34 @@
 "use strict";
 
 angular
-    .module('app.rendiciones', [
+    .module('app.residentes', [
         'ui.router',
         'restangular'
     ])
     .config(function ($stateProvider) {
 
         $stateProvider
-            .state('app.rendicionesMes', {
+            .state('app.residentes', {
                 // Esta url hace match entre mes y año del condominio (id)
-                url : '/condominios/:id_condominio/rendiciones/:id_rendicion',
+                url : '/condominios/:id_condominio/residentes',
                 data: {
-                    title: 'Rendiciones del Mes'
+                    title: 'Residentes'
                 },
                 views: {
                     "content@app": {
-                        controller: 'RendicionesCtrl',
-                        templateUrl: 'app/rendiciones/views/index.html'
+                        controller: 'ResidentesCtrl',
+                        templateUrl: 'app/residentes/views/index.html'
                     }
                 },
                 resolve: {
                     gridDataRaw: function ($stateParams, Restangular) {
                         var id_condominio = parseInt($stateParams.id_condominio);
-                        var id_rendicion = parseInt($stateParams.id_rendicion);
-
-                        // return Restangular
-                        //     .one("condominios", id_condominio)
-                        //     .one("rendiciones", id_rendicion)
-                        //     .get();
 
                         return Restangular
-                            .one("condominios", id_condominio)
-                            .one("rendicionActual")
+                            //.one("condominios", id_condominio)
+                            .one("residentes")
                             .get();
 
-                    },
-                    idCondominio: function ($stateParams) {
-                        return parseInt($stateParams.id_condominio);
                     },
                     scripts: function (lazyScript) {
                         return lazyScript.register([
