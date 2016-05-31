@@ -1,9 +1,35 @@
+<!-- MAIN CONTENT -->
 <div id="content">
-    <section widget-grid id="widget-grid">
+
+    <!-- widget grid -->
+
         <div class="row">
             <article class="col-sm-12">
-                <jq-grid grid-data="gridData"></jq-grid>
+
+                <div jarvis-widget id="standard-datatable-widget" data-widget-color="darken" data-widget-editbutton="false">
+
+                    <div>
+                        <div class="widget-body no-padding">
+                        <table datatable dt-options="datatables.standardOptions" dt-columns="datatables.standardColumns" class="table table-striped table-bordered table-hover" width="100%">
+                        <thead>
+                        <tr>
+                            <!--<th data-hide="phone">ID</th> -->
+                            <th data-hide="phone">Departamento</th>
+                            <th data-class="expand"><i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i>Residente</th>
+                            <th data-hide="phone,tablet"><i class="fa fa-fw fa-calendar txt-color-blue hidden-md hidden-sm hidden-xs"></i>Fecha Inicio</th>
+                            <th data-hide="phone,tablet"><i class="fa fa-fw fa-calendar txt-color-blue hidden-md hidden-sm hidden-xs"></i>Fecha Termino</th>
+                            <th data-hide="phone">Tipo</th>
+                            <th data-hide="phone">Activo</th>
+                        </tr>
+                        </thead>
+
+                        </table>
+
+                        </div>
+                    </div>
+                </div>
+
             </article>
         </div>
-    </section>
+
 </div>

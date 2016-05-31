@@ -30,6 +30,9 @@ angular
                             .get();
 
                     },
+                    idCondominio: function ($stateParams) {
+                        return parseInt($stateParams.id_condominio);
+                    },
                     scripts: function (lazyScript) {
                         return lazyScript.register([
                             'smartadmin-plugin/legacy/jqgrid/js/minified/jquery.jqGrid.min.js',

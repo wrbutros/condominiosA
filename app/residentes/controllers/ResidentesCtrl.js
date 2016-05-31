@@ -6,7 +6,8 @@ angular
         'ResidentesCtrl',
         function(DTOptionsBuilder,
                  DTColumnBuilder,
-                 gridDataRaw) {
+                 gridDataRaw,
+                 idCondominio) {
 
             //debugger;
     this.standardOptions = DTOptionsBuilder
