@@ -32,7 +32,7 @@ angular
 
                         return Restangular
                             .one("condominios", id_condominio)
-                            .one("contratosCondominio")
+                            .one("contratos")
                             .get();
 
                     },

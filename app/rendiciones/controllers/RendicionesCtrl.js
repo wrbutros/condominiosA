@@ -15,7 +15,7 @@ angular
                 "editurl": "http://localhost:8000/v1/glosa/"
                     + idCondominio
                     + "/jqgrid/",
-                "height": 700,
+                "height": 580,
                 "hiddengrid": false,
                 "hidegrid": false,
                 "grouping": true,

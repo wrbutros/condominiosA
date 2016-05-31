@@ -1,29 +1,28 @@
 "use strict";
 
 angular
-    .module('app.rendiciones', [
+    .module('app.lecturaServicio', [
         'ui.router',
         'restangular'
     ])
     .config(function ($stateProvider) {
 
         $stateProvider
-            .state('app.rendicionesMes', {
+            .state('app.lecturaServicio', {
                 // Esta url hace match entre mes y año del condominio (id)
-                url : '/condominios/:id_condominio/rendiciones/:id_rendicion',
+                url : '/condominios/:id_condominio/lecturaServicio',
                 data: {
-                    title: 'Rendiciones del Mes'
+                    title: 'Lectura Servicio'
                 },
                 views: {
                     "content@app": {
-                        controller: 'RendicionesCtrl',
-                        templateUrl: 'app/rendiciones/views/index.html'
+                        controller: 'LecturaServicioCtrl',
+                        templateUrl: 'app/lectura-servicio/views/index.html'
                     }
                 },
                 resolve: {
                     gridDataRaw: function ($stateParams, Restangular) {
                         var id_condominio = parseInt($stateParams.id_condominio);
-                        var id_rendicion = parseInt($stateParams.id_rendicion);
 
                         // return Restangular
                         //     .one("condominios", id_condominio)
@@ -32,7 +31,7 @@ angular
 
                         return Restangular
                             .one("condominios", id_condominio)
-                            .one("rendicionActual")
+                            .one("lecturaServicioCondominio")
                             .get();
 
                     },

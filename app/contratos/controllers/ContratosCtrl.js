@@ -9,7 +9,7 @@ angular
                   gridDataRaw,
                   idCondominio) {
 
-            //debugger;
+            debugger;
             // this.standardOptions = DTOptionsBuilder
             //     .fromSource('api/tables/datatables.standard2.json')
             this.standardOptions = DTOptionsBuilder

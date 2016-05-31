@@ -1,95 +1,32 @@
 'use strict';
 
 angular
-    .module('app.rendiciones')
+    .module('app.lecturaServicio')
     .controller(
-        'RendicionesCtrl',
-        function ($scope,
-                  $location,
+        'ContratosCtrl',
+        function (DTOptionsBuilder,
+                  DTColumnBuilder,
                   gridDataRaw,
                   idCondominio) {
 
-            /*TODO: Gets it from other site*/
-            var table = {
-                "caption": "Gastos Comunes",
-                "editurl": "http://localhost:8000/v1/glosa/"
-                    + idCondominio
-                    + "/jqgrid/",
-                "height": 700,
-                "hiddengrid": false,
-                "hidegrid": false,
-                "grouping": true,
-                "colNames": [
-                    "id",
-                    "Tipo Gasto",
-                    "Descripción",
-                    "Documento",
-                    "Ingreso",
-                    "Egreso"
-                ],
-                "colModel": [
-                    {
-                        "name": "id",
-                        "index": "id",
-                        "hidden": true
-                    },
-                    {
-                        "name": "tipoGasto",
-                        "index": "tipoGasto",
-                        "editable": true,
-                        "edittype": "select",
-                        "editoptions": {
-                            "value": gridDataRaw.results[0].grupos
-                        }
-                    },
-                    {
-                        "name": "descripcion",
-                        "index": "descripcion",
-                        "editable": true
-                    },
-                    {
-                        "name": "documento",
-                        "index": "documento",
-                        "editable": true
-                    },
-                    {
-                        "name": "ingreso",
-                        "index": "ingreso",
-                        "align": "right",
-                        "formatter": "integer",
-                        "editable": true,
-                        "fixed": true,
-                        "width": 75,
-                        "summaryTpl": "{0}",
-                        "summaryType": "sum"
-                    },
-                    {
-                        "name": "egreso",
-                        "index": "egreso",
-                        "align": "right",
-                        "formatter": "integer",
-                        "editable": true,
-                        "fixed": true,
-                        "width": 75,
-                        "summaryTpl": "{0}",
-                        "summaryType": "sum"
-                    }
-                ],
-                "data": gridDataRaw.results[0].data
-            };
+            debugger;
+            // this.standardOptions = DTOptionsBuilder
+            //     .fromSource('api/tables/datatables.standard2.json')
+            this.standardOptions = DTOptionsBuilder
+                .fromSource(gridDataRaw.results[0].data)
 
-            $scope.gridData = table;
+            //Add Bootstrap compatibility
+                .withDOM("<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>" +
+                         "t" +
+                         "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>")
+                .withBootstrap();
+            this.standardColumns = [
+                //DTColumnBuilder.newColumn('id').withClass('text-danger'),
+                DTColumnBuilder.newColumn('servicio'),
+                DTColumnBuilder.newColumn('departamento'),
+                DTColumnBuilder.newColumn('fecha'),
+                DTColumnBuilder.newColumn('lectura'),
 
-            $scope.gridData.customButton = {
-                id: "ui-prorrotear",
-                caption: "Prorrotear",
-                buttonicon: "ui-icon-newwin",
-                onClickButton: function () {
-                    $location.path('/collection/expenses');
-                },
-                position: "last",
-                title: "Prorrotear",
-                cursor: "pointer"
-            };
+            ];
 
         });

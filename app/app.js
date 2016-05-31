@@ -41,7 +41,7 @@ angular
         'app.cobranzas',   // Cobranza de Gastos (Planilla de cobros/pagos)
         'app.residentes',  // CRUD Residentes
         'app.contratos',   // CRUD Contratos
-        //'app.lecturaServicio' //Ingreso de Lecturas de Servicio
+        'app.lecturaServicio' //Ingreso de Lecturas de Servicio
     ])
     .config(function ($provide, $httpProvider, RestangularProvider) {
 
