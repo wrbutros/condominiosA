@@ -22,6 +22,7 @@ angular
                 "colNames": [
                     "id",
                     "Tipo Gasto",
+                    "Nombre Gasto",
                     "Descripción",
                     "Documento",
                     "Ingreso",
@@ -41,6 +42,11 @@ angular
                         "editoptions": {
                             "value": gridDataRaw.results[0].grupos
                         }
+                    },
+                    {
+                        "name": "nombre",
+                        "index": "nombre",
+                        "editable": true
                     },
                     {
                         "name": "descripcion",
