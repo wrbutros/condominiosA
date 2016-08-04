@@ -1,5 +1,5 @@
 <!-- MAIN CONTENT -->
-<div id="content">
+<div id="content" >
 
   <!-- widget grid -->
   <section widget-grid id="widget-grid">
@@ -15,7 +15,7 @@
           <div>
 
             <div class="widget-body no-padding">
-              <table datatable dt-options="datatables.standardOptions" dt-columns="datatables.standardColumns" class="table table-striped table-bordered table-hover" width="100%">
+              <table datatable dt-options="standardOptions" dt-columns="standardColumns" dt-instance="dtInstance" class="table table-striped table-bordered table-hover" width="100%">
                 <thead>
                   <tr>
                     <!--<th data-hide="phone">ID</th> -->
@@ -44,8 +44,8 @@
           </header>
 
           <div>
-            <form action="/residente/set/" method="post" id="contact-form" class="smart-form">
-              <header>Contacts form</header>
+            <form method="post" name="residenteForm" class="smart-form">
+              
 
               <fieldset>
                 <div class="row">
@@ -53,14 +53,14 @@
                     <label class="label">RUT</label>
                     <label class="input">
                       <i class="icon-append fa fa-user"></i>
-                      <input type="text" name="rut" id="rut">
+                      <input type="text" name="rut" id="rut" ng-model="registration.rut" required>
                     </label>
                   </section>
                   <section class="col col-6">
                     <label class="label">Nombre</label>
                     <label class="input">
                       <i class="icon-append fa fa-user"></i>
-                      <input type="text" name="nombre" id="nombre">
+                      <input type="text" name="nombre" id="nombre" ng-model="registration.nombres" required>
                     </label>
                   </section>
                 </div>
@@ -70,14 +70,14 @@
                     <label class="label">Apellido Paterno</label>
                     <label class="input">
                       <i class="icon-append fa fa-user"></i>
-                      <input type="text" name="apellido_paterno" id="apellido_paterno">
+                      <input type="text" name="apellido_paterno" id="apellido_paterno" ng-model="registration.apellido_paterno" required>
                     </label>
                   </section>
                   <section class="col col-6">
                     <label class="label">Apellido Materno</label>
                     <label class="input">
                       <i class="icon-append fa fa-user"></i>
-                      <input type="text" name="apellido_materno" id="apellido_materno">
+                      <input type="text" name="apellido_materno" id="apellido_materno" ng-model="registration.apellido_materno" required>
                     </label>
                   </section>
                 </div>
@@ -87,7 +87,8 @@
                   <section class="col col-6">
                     <label class="label">Genero</label>
                     <label class="select">
-                      <select name="genero" id="genero"">
+                      <select name="genero" id="genero"" ng-model="registration.genero" required>
+                        <option value="-1" selected>Seleccionar</option>
                         <option value="M">Masculino</option>
                         <option value="F">Femenino</option>
                       </select> <i></i>
@@ -97,7 +98,7 @@
                     <label class="label">Fecha de ingreso</label>
                     <label class="input"> <i class="icon-append fa fa-calendar"></i>
                       <input type="text" id="fecha_ingreso" name="fecha_ingreso" placeholder="Fecha de ingreso"
-                             data-smart-datepicker data-dateformat='dd/mm/yy' ng-model="registration.date">
+                             data-smart-datepicker data-dateformat='dd/mm/yy' >
                     </label>
                   </section>
                 </div>
@@ -108,20 +109,20 @@
                     <label class="label">Telefono</label>
                     <label class="input">
                       <i class="icon-append fa fa-phone"></i>
-                      <input type="text" name="fono" id="fono">
+                      <input type="text" name="fono" id="fono" ng-model="registration.fono" required>
                     </label>
                   </section>
                   <section class="col col-6">
                     <label class="label">E-mail</label>
                     <label class="input">
                       <i class="icon-append fa fa-envelope-o"></i>
-                      <input type="email" name="email" id="email">
+                      <input type="email" name="email" id="email" ng-model="registration.email" required>
                     </label>
                   </section>
                 </div>
 
               <footer>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary" ng-click="crearUsuario(residenteForm)">Guardar</button>
               </footer>
 
               <div class="message">

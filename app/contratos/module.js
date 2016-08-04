@@ -22,18 +22,18 @@ angular
                 },
                 resolve: {
                     gridDataRaw: function ($stateParams, Restangular) {
-                        var id_condominio = parseInt($stateParams.id_condominio);
-                        //var id_rendicion = parseInt($stateParams.id_rendicion);
+                        // var id_condominio = parseInt($stateParams.id_condominio);
+                        // //var id_rendicion = parseInt($stateParams.id_rendicion);
+
+                        // // return Restangular
+                        // //     .one("condominios", id_condominio)
+                        // //     .one("rendiciones", id_rendicion)
+                        // //     .get();
 
                         // return Restangular
                         //     .one("condominios", id_condominio)
-                        //     .one("rendiciones", id_rendicion)
+                        //     .one("contratos")
                         //     .get();
-
-                        return Restangular
-                            .one("condominios", id_condominio)
-                            .one("contratos")
-                            .get();
 
                     },
                     idCondominio: function ($stateParams) {

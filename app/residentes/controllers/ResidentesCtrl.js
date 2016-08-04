@@ -4,33 +4,64 @@ angular
     .module('app.residentes')
     .controller(
         'ResidentesCtrl',
-        function(DTOptionsBuilder,
+        function($scope, $http, $q, DTOptionsBuilder,
                  DTColumnBuilder,
-                 gridDataRaw,
-                 idCondominio) {
+                 idCondominio, RestService, Restangular) {
 
             //debugger;
-    this.standardOptions = DTOptionsBuilder
-        .fromSource('api/tables/datatables.standard2.json')
-    //this.standardOptions = DTOptionsBuilder
-      //  .fromSource(gridDataRaw.results[0].data)
+    $scope.registration = {
+      rut: null,
+      nombre: null,
+      fecha_ingreso: '2016-08-03',
+      apellido_paterno: null,
+      apellido_materno: null,
+      genero: -1,
+      fono: null,
+      email: null
+    };
 
-    //Add Bootstrap compatibility
-        .withDOM("<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>" +
-                 "t" +
-                 "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>")
-        .withBootstrap();
-    this.standardColumns = [
+    // ESTE CODIGO FUNCIONARA MIENTRAS TANTO PERO DEBE SER REVISADO POR UN 
+    // CODIGO QUE CAMBIE DINAMICAMENTE AS COLUMNAS A PARTIR DEL OBJETO DATAGRID
+    $scope.standardOptions = DTOptionsBuilder
+        .fromFnPromise(function() {
+            var defer = $q.defer();
+            Restangular
+            .one("residentes")
+            .get()
+            .then(function(data){
+              defer.resolve(data.results);
+            });
+            return defer.promise;
+        })
+    $scope.standardColumns = [
         //DTColumnBuilder.newColumn('id').withClass('text-danger'),
         DTColumnBuilder.newColumn('rut'),
-        DTColumnBuilder.newColumn('nombre'),
+        DTColumnBuilder.newColumn('nombres'),
         DTColumnBuilder.newColumn('apellido_paterno'),
         DTColumnBuilder.newColumn('apellido_materno'),
         DTColumnBuilder.newColumn('genero'),
-        DTColumnBuilder.newColumn('telefono'),
+        DTColumnBuilder.newColumn('fono'),
         DTColumnBuilder.newColumn('email'),
         DTColumnBuilder.newColumn('fecha_ingreso')
     ];
 
+    $scope.dtInstance = {};
 
+    $scope.crearUsuario = function(form){
+      if(form.$valid){
+        RestService.post($scope.registration).then(function(data) {
+           $scope.dtInstance.reloadData();
+           $scope.registration = {
+              rut: null,
+              nombre: null,
+              fecha_ingreso: '2016-08-03',
+              apellido_paterno: null,
+              apellido_materno: null,
+              genero: -1,
+              fono: null,
+              email: null
+            };
+        });  
+      }
+    }
 });

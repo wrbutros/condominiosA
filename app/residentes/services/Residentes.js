@@ -5,6 +5,6 @@
  */
 angular
     .module('app.rendiciones')
-    .factory('Rendicion', function (Restangular) {
-        return Restangular.service('rendiciones/report');
+    .factory('ResidentesService', function (Restangular) {
+        return Restangular.service('residentes');
     });

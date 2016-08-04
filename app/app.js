@@ -81,7 +81,7 @@ angular
         });
 
         // Add the interceptor to the $httpProvider.
-        $httpProvider.interceptors.push('ErrorHttpInterceptor');
+        $httpProvider.interceptors.push('ErrorHttpInterceptor'); 
 
         RestangularProvider.setBaseUrl(
             //location.pathname.replace(/[^\/]+?$/, '')
@@ -89,7 +89,7 @@ angular
             "http://localhost:8000/v1/"
             //"http://dominio.django/v1/"
             //"http://condominio-transparente.dyndns.org:8882/"
-        );
+        ).setDefaultHeaders({'Content-Type': 'application/json'})
 
     })
     .constant('APP_CONFIG', window.appConfig)

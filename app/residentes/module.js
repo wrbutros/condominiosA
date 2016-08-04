@@ -39,6 +39,9 @@ angular
                             'smartadmin-plugin/legacy/jqgrid/js/i18n/grid.locale-en.js'
                         ]);
 
+                    },
+                    RestService: function(Restangular){
+                        return Restangular.all('residentes/');
                     }
                 }
             });

@@ -65,6 +65,7 @@ gulp.task('connect', function() {
 });
 
 gulp.task('vendor', function(){
+    var gutil = require('gulp-util');
     _.forIn(scripts.chunks, function(chunkScripts, chunkName){
         var paths = [];
         chunkScripts.forEach(function(script){
